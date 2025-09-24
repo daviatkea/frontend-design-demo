@@ -37,8 +37,10 @@ import Sidebar from "../components/Sidebar.astro";
       padding: 2rlh max(1rlh, 50% - 90ch / 2);
       @media (width > 600px) {
         grid: auto / fit-content(300px) 1fr;
-        display: grid;
-        gap: 3rlh;
+        div {
+          display: grid;
+          gap: 3rlh;
+        }
       }
       @media (width <= 600px) {
         .sidebar {
