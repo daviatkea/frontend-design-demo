@@ -1,0 +1,13 @@
+@import "./reset.css" layer(reset);
+@import "./theme.css" layer(theme);
+@import "./overrides.css" layer(overrides);
+
+@layer global {
+    html {
+        color: oklch(.5 3% 78);
+    }
+
+    code {
+        font-size: 0.75rem;
+    }
+}

@@ -1,0 +1,192 @@
+<header>
+  <div class="content">
+    <h1>Frontend Design</h1>
+    <p>Crafting User Interfaces</p>
+  </div>
+</header>
+
+<style>
+  @layer components.hero {
+    @property --h {
+      syntax: "<number>";
+      inherits: true;
+      initial-value: 500;
+    }
+
+    @property --wdth {
+      syntax: "<integer>";
+      inherits: true;
+      initial-value: 500;
+    }
+
+    @property --progress {
+      syntax: "<integer>";
+      inherits: true;
+      initial-value: 0;
+    }
+
+    @keyframes --prog {
+      from {
+        --progress: 0;
+      }
+      to {
+        --progress: 100;
+      }
+    }
+
+    @keyframes --title2 {
+      0%,
+      5% {
+        --h: 500;
+      }
+      55% {
+        --h: 200;
+        --wdth: 600;
+      }
+      83%,
+      85% {
+        --wdth: 500;
+        --h: 1000;
+        font-size: 2rem;
+      }
+
+      from {
+        translate: 0 calc(50svh - 0.5lh);
+        font-size: 5rem;
+        font-size: clamp(2rem, calc(0.5rem + 6vw), 5rem);
+      }
+
+      to {
+        translate: 0 -25%;
+      }
+    }
+
+    @keyframes --stretch-fade {
+      0%,
+      30% {
+        letter-spacing: 1px;
+        opacity: 1;
+        font-variation-settings: "wdth" 80;
+      }
+      100% {
+        letter-spacing: 0.5rem;
+        opacity: 0;
+        font-variation-settings: "wdth" 150;
+      }
+    }
+
+    @keyframes --fill {
+      100%,
+      50% {
+        background: oklch(0.88 0.23 160.18 / 0.99);
+        background: oklch(0.95 5% 78);
+        border-bottom: 1px solid oklch(0.9 5% 78);
+      }
+    }
+
+    header {
+      z-index: 10;
+      block-size: 100svh;
+      /*view-timeline: --header;*/
+      pointer-events: none;
+      position: relative;
+      position: sticky;
+      inset-block-start: 0;
+      .content {
+        anchor-name: --header;
+        height: calc-size(auto, round(up, size, 2px));
+        pointer-events: auto;
+        padding: 0.5rlh max(1rlh, 50% - 1000px / 2);
+        background: oklch(0.88 0.23 160.18 / 0);
+        background: oklch(0.95 5% 78 / 0);
+        justify-items: center;
+        display: grid;
+        contain: layout;
+        border-bottom: 1px solid oklch(0.9 5% 78 / 0);
+
+        animation: --fill linear both;
+        animation-timeline: scroll(root);
+        animation-range: 40svh 80svh;
+      }
+
+      &::after {
+        position: absolute;
+        position-anchor: --header;
+        top: anchor(top);
+        right: calc(anchor(right) + 1rlh);
+        bottom: anchor(bottom);
+        align-self: center;
+        counter-reset: s var(--progress, 0);
+        animation: --prog steps(100) both;
+        animation-timeline: scroll(root);
+        content: counter(s) "%";
+      }
+
+      h1 {
+        width: fit-content;
+        /*letter-spacing: -.02ch;*/
+        color: oklch(0.4 0.08 160.18);
+        color: oklch(0.5 15% 78);
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 0.4ch;
+        white-space: break-spaces;
+        font-family: var(--font-flex);
+
+        span {
+          --wdth: 500;
+          --h: 500;
+          font-variation-settings:
+            "wdth" var(--wdth),
+            "HGHT" var(--h);
+          --start: var(--i);
+          --end: calc(var(--i) + 35);
+          animation: --title2 linear both;
+          animation-timing-function: var(--glide);
+          animation-timeline: scroll(root);
+          animation-range: 0 33svh;
+          animation-range: contain calc(((var(--start, 0) * 10) * 1px)) contain
+            calc(((var(--end, 0) * 10) * 1px));
+          display: inline-block;
+          text-box: cap alphabetic;
+          transition: 0.3s;
+          transition-delay: calc(sin((var(--i) / 10) * 45deg) * 0.5s);
+
+          @starting-style {
+            transform: translateY(-50%);
+            opacity: 0;
+          }
+        }
+      }
+
+      p {
+        font-family: ui-rounded, "Hiragino Maru Gothic ProN", Quicksand,
+          Comfortaa, Manjari, "Arial Rounded MT", "Arial Rounded MT Bold",
+          Calibri, source-sans-pro, sans-serif;
+        font-weight: 500;
+        text-align: center;
+        position: absolute;
+        pointer-events: none;
+        inset: auto 0;
+        color: oklch(0.6 10% 78);
+        translate: 0 calc(50svh + 1lh);
+        animation: --stretch-fade linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 33svh;
+        /*opacity: calc(1 - (var(--progress)));
+    letter-spacing: calc(var(--progress) * 2ch + 1.1px);*/
+      }
+    }
+  }
+</style>
+
+<script>
+  const h1 = document.querySelector("h1");
+
+  if (h1) {
+    h1.innerHTML = h1.textContent
+      .split("")
+      .map((char, index) => `<span style="--i: ${index}">${char}</span>`)
+      .join("");
+  }
+</script>

@@ -1,0 +1,64 @@
+---
+import FontSizer from "./FontSizer.astro";
+import GearIcon from "../assets/icons/gear.svg";
+---
+
+<button command="toggle-popover" commandfor="settings" aria-label="Settings">
+  <GearIcon />
+</button>
+<div id="settings" popover>
+  <h2>Settings</h2>
+  <FontSizer />
+</div>
+
+<style>
+  button {
+    position: fixed;
+    position-anchor: --header;
+    top: anchor(top);
+    left: calc(anchor(left) + 1rlh);
+    bottom: anchor(bottom);
+    align-self: center;
+    z-index: 12;
+    padding: 0.25rlh;
+    background: oklch(0.85 10% 78 / 0);
+    border-radius: 16px;
+    corner-shape: squircle;
+    color: oklch(0.5 15% 78);
+    border: 0;
+    transition: background 0.05s;
+    cursor: pointer;
+    &:hover,
+    &:has(+ :popover-open) {
+      background: oklch(0.9 7% 78);
+    }
+    &:focus-visible {
+      outline: 2px solid oklch(0.5 15% 78);
+      outline-offset: 2px;
+    }
+  }
+  svg {
+    display: block;
+    height: auto;
+    width: 1.5rem;
+  }
+  #settings {
+    position: fixed;
+    position-area: bottom span-right;
+    position-try: flip-inline;
+    inset: auto;
+    margin: 4px 0;
+    background: oklch(0.99 2% 78);
+    text-box: cap alphabetic;
+    padding: 0.75rlh;
+    border-radius: 0.5rlh;
+    color: oklch(0.5 15% 78);
+    border: 1px solid oklch(0.9 5% 78);
+  }
+
+  h2 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+</style>

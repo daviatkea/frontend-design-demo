@@ -1,0 +1,67 @@
+---
+const { id } = Astro.props;
+---
+
+<section {id}>
+  <slot />
+</section>
+
+<style>
+  @layer components.section {
+    section {
+      padding: 1rlh;
+      scroll-margin-block: 4rlh;
+      grid-column: 2;
+      border: var(--thickness) solid #eeeeee;
+      background: repeating-linear-gradient(
+          -45deg,
+          #f9f9f9 0 25%,
+          transparent 0 50%
+        )
+        0% 0% / 4px 4px;
+      position: relative;
+      --size: 8px;
+      --thickness: 1.5px;
+      --offset: calc(var(--size) * 2 - var(--thickness));
+      --marker-color: #808080;
+      overflow: clip;
+      overflow-clip-margin: var(--thickness);
+
+      &::before {
+        pointer-events: none;
+        content: "";
+        position: absolute;
+        inset: calc(-1 * var(--size));
+        background: conic-gradient(
+            from 90deg at var(--thickness) var(--thickness),
+            #0000 25%,
+            var(--marker-color) 0
+          )
+          calc(var(--size) - var(--thickness))
+          calc(var(--size) - var(--thickness)) /
+          calc(100% - (var(--size) * 2 - var(--thickness)))
+          calc(100% - (var(--size) * 2 - var(--thickness)));
+        mask: conic-gradient(
+            at calc(var(--size) * 2 - var(--thickness))
+              calc(var(--size) * 2 - var(--thickness)),
+            #0000 75%,
+            #000 0
+          )
+          0 0 / calc(100% - (var(--size) * 2) + var(--thickness))
+          calc(100% - (var(--size) * 2) + var(--thickness));
+      }
+
+      h2 {
+        color: oklch(0.3 10% 78);
+        margin-bottom: 1rlh;
+        line-height: 1.25;
+      }
+      > * + * {
+        margin-block-start: 1lh;
+        &:is(h3) + p {
+          margin-top: 0.2lh;
+        }
+      }
+    }
+  }
+</style>

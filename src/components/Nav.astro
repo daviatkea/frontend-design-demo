@@ -1,0 +1,170 @@
+---
+const links = [
+  { href: "#architectural", text: "Architectural foundations" },
+  { href: "#new-responsive", text: "The new responsive" },
+  { href: "#interactions", text: "Interactions" },
+  { href: "#future", text: "Bleeding edge" },
+];
+---
+
+<button popovertarget="menu" id="navBtn">Menu</button>
+<aside popover id="menu">
+  <button popovertarget="menu">Menu</button>
+  <nav>
+    <ul>
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href}>{link.text}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>
+
+<style>
+  @layer components.nav {
+    button,
+    [popover] {
+      background: oklch(0.95 5% 78);
+      text-box: cap alphabetic;
+      padding: 0;
+      border-radius: 0.5rlh;
+      color: oklch(0.5 15% 78);
+      border: 1px solid oklch(0.9 5% 78);
+      font: inherit;
+      font-weight: 600;
+    }
+    button {
+      &#navBtn {
+        position: fixed;
+        bottom: 1rlh;
+        inset-inline-start: 1rlh;
+        inset-inline-end: 1rlh;
+        justify-self: center;
+      }
+      transition: var(--duration) var(--easing);
+      cursor: pointer;
+      border: 1px solid oklch(0.9 5% 78);
+      padding: 0.7rlh;
+      anchor-name: --btn;
+    }
+    aside {
+      --open: 0;
+      inset: auto;
+      margin: 0;
+      position: fixed;
+      flex-direction: column-reverse;
+      position-anchor: --btn;
+      position-area: center span-block-start;
+      width: anchor-size(width);
+      height: anchor-size(height);
+      border: 0;
+      button {
+        padding: 0.7rlh;
+        border: none;
+      }
+      transition: var(--duration) var(--easing);
+      transition-property: width, height, display, overlay;
+      transition-behavior: allow-discrete;
+      transform: translate3d(0, 0, 0);
+
+      &::backdrop {
+        transition: var(--duration);
+        transition-property: opacity, backdrop-filter;
+        transition-behavior: allow-discrete;
+        opacity: var(--open);
+        backdrop-filter: blur(calc(var(--open) * 3px));
+        background: oklch(0.75 5% 78 / 0.4);
+        background: #fff;
+        mask: linear-gradient(180deg, #0000 0%, #fff 100%);
+
+        @starting-style {
+          opacity: 0;
+          backdrop-filter: blur(3px);
+        }
+      }
+
+      &:popover-open {
+        --open: 1;
+        display: flex;
+
+        transition: var(--duration) var(--easing);
+
+        width: max-content;
+        height: max-content;
+
+        @starting-style {
+          width: anchor-size(width);
+          height: anchor-size(height);
+        }
+      }
+    }
+
+    nav {
+      scroll-target-group: auto;
+      padding: 0.5rlh;
+      border-bottom: 1px solid oklch(0.92 4% 78);
+
+      ul {
+        list-style-type: "";
+        padding: 0;
+        margin: 0;
+        display: grid;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: anchor(top);
+          left: anchor(left);
+          bottom: anchor(bottom);
+          height: 1lh;
+          width: anchor-size(width);
+          align-self: center;
+          position-anchor: --current;
+          border: 2px dashed oklch(0.83 8% 78);
+          corner-shape: squircle;
+          border-radius: 16px;
+          transition: var(--duration) var(--easing);
+          pointer-events: none;
+        }
+
+        li {
+          display: contents;
+        }
+
+        a {
+          font-weight: 450;
+          font-size: 1.1rem;
+          padding: 0.25rlh 0.5rlh;
+          display: inline-block;
+          border-radius: 0.2rlh;
+          color: inherit;
+          color: oklch(0.6 10% 78);
+          text-decoration: none;
+          white-space: nowrap;
+          inline-size: fit-content;
+
+          &:hover {
+            background: oklch(0.93 8% 78);
+          }
+          &:target-current {
+            color: #000;
+            anchor-name: --current;
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  const popover = document.querySelector("#menu");
+  const links = popover?.querySelectorAll("a");
+  links?.forEach((link) => {
+    link.addEventListener("click", () =>
+      (popover as HTMLElement)?.hidePopover()
+    );
+  });
+</script>

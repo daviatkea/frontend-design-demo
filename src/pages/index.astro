@@ -1,16 +1,29 @@
 ---
+import FeatureList from "../components/FeatureList.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import Section from "../components/Section.astro";
 
+import { getCollection, render } from "astro:content";
+
+const sections = await getCollection("curriculum");
+sections.sort((a, b) => a.data.order - b.data.order);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout>
+  {
+    await Promise.all(
+      sections.map(async (section, index) => {
+        const { Content } = await render(section);
+        return (
+          <>
+            <Section id={section.data.slug}>
+              <h2>{section.data.title}</h2>
+              <Content />
+            </Section>
+            {index === 1 && <FeatureList />}
+          </>
+        );
+      })
+    )
+  }
+</MainLayout>

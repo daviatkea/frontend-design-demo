@@ -1,0 +1,36 @@
+#settings:popover-open~main section {
+    font-size: round(var(--min) + (var(--max) - var(--min)) * var(--i),
+            var(--step));
+}
+
+
+html[data-sidebar-menu] {
+    #navBtn {
+        display: none;
+    }
+
+    #menu {
+        display: contents;
+
+        button {
+            display: none;
+        }
+
+        nav {
+            padding: 0;
+            border: 0;
+        }
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 4rlh;
+        align-self: start;
+    }
+}
+
+html.sidebar-transitioning {
+    * {
+        transition: none !important;
+    }
+}

@@ -1,0 +1,57 @@
+---
+import "../styles/global.css";
+import { Font } from "astro:assets";
+import Hero from "../components/Hero.astro";
+import Settings from "../components/Settings.astro";
+import Sidebar from "../components/Sidebar.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Frontend Design</title>
+    <style is:inline>
+      @layer reset, theme, global, components, overrides;
+    </style>
+    <Font cssVariable="--font-flex" preload />
+  </head>
+  <body>
+    <Hero />
+    <Settings />
+    <main>
+      <Sidebar />
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  @layer global {
+    main {
+      display: grid;
+      gap: 3rlh;
+      padding: 2rlh max(1rlh, 50% - 90ch / 2);
+      @media (width > 600px) {
+        grid: auto / fit-content(150px) 1fr;
+      }
+    }
+  }
+</style>
+
+<script>
+  const menuToggle = document.querySelector("#menu-toggle");
+  menuToggle?.addEventListener("change", (e) => {
+    const checked = (e.target as HTMLInputElement).checked;
+    document.documentElement.toggleAttribute("data-sidebar-menu", checked);
+
+    // Add temporary class for transition
+    document.documentElement.classList.add("sidebar-transitioning");
+
+    // Remove the class after the transition duration (e.g., 300ms)
+    setTimeout(() => {
+      document.documentElement.classList.remove("sidebar-transitioning");
+    }, 300); // Adjust this value to match your CSS transition duration
+  });
+</script>

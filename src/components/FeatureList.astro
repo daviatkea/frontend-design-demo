@@ -1,0 +1,184 @@
+<article>
+  <div>&</div>
+  <ul>
+    <li>
+      <span>:has()</span>
+      <span>:focus-visible</span>
+    </li>
+    <li>
+      <span>:user-invalid</span>
+      <span>:target-current</span>
+    </li>
+    <li>
+      <span>:popover-open</span>
+      <span>:open</span>
+    </li>
+    <li>
+      <span>::view-transition-new()</span>
+      <span>::view-transition-old()</span>
+    </li>
+    <li>
+      <span>::scroll-button()</span>
+      <span>::scroll-marker()</span>
+    </li>
+    <li>
+      <span>::details-content</span>
+      <span>::picker()</span>
+    </li>
+    <li>
+      <span>@container</span>
+      <span>@scope</span>
+    </li>
+    <li>
+      <span>@layer</span>
+      <span>@starting-style</span>
+    </li>
+    <li>
+      <span>@view-transition</span>
+      <span>@position-try</span>
+    </li>
+    <li>
+      <span>@function</span>
+      <span>@property</span>
+    </li>
+    <li>
+      <span>color(from …)</span>
+      <span>color-mix()</span>
+    </li>
+    <li>
+      <span>oklch()</span>
+      <span>oklab()</span>
+    </li>
+    <li>
+      <span>if()</span>
+      <span>linear()</span>
+    </li>
+    <li>
+      <span>min()</span>
+      <span>max()</span>
+    </li>
+    <li>
+      <span>scroll()</span>
+      <span>view()</span>
+    </li>
+    <li>
+      <span>clamp()</span>
+      <span>light-dark()</span>
+    </li>
+    <li>
+      <span>sibling-index()</span>
+      <span>sibling-count()</span>
+    </li>
+    <li>
+      <span>sin()</span>
+      <span>cos()</span>
+    </li>
+    <li>
+      <span>anchor()</span>
+      <span>anchor-name</span>
+    </li>
+    <li>
+      <span>progress()</span>
+      <span>random()</span>
+    </li>
+    <li>
+      <span>calc-size()</span>
+      <span>interpolate-size</span>
+    </li>
+    <li>
+      <span>animation-timeline</span>
+      <span>transition-behavior</span>
+    </li>
+    <li>
+      <span>text-wrap</span>
+      <span>text-box</span>
+    </li>
+    <li>
+      <span>anchor-name</span>
+      <span>position-area</span>
+    </li>
+    <li>
+      <span>field-sizing</span>
+      <span>corner-shape</span>
+    </li>
+    <li>
+      <span>rlh/lh</span>
+      <span>cap</span>
+    </li>
+    <li>
+      <span>cqw</span>
+      <span>svh/dvh</span>
+    </li>
+  </ul>
+</article>
+
+<style>
+  article {
+    grid-column: 1 / -1;
+    align-content: center;
+    display: grid;
+    grid: 1fr auto 1fr / auto;
+    justify-content: center;
+    gap: 2rem;
+    line-height: 1.5;
+    view-timeline: --section;
+    view-timeline-inset: calc(50% - 3rlh);
+
+    div {
+      text-align: center;
+      position: sticky;
+      top: calc(50vh - 1cap);
+      font-weight: 500;
+      font-family: Optima, Candara, "Noto Sans", source-sans-pro, sans-serif;
+      font-size: 2rem;
+    }
+
+    ul {
+      font-size: 1.125rem;
+      display: grid;
+      grid: auto / 1fr 1fr;
+      column-gap: 0.3ch;
+
+      li {
+        display: contents;
+      }
+    }
+
+    span {
+      --moveAmount: 50px;
+      display: inline-block;
+      animation: move ease both;
+      animation-timeline: view(calc(50% - 4rlh));
+      animation-range: entry 100% exit 100%;
+      line-height: 1.25rlh;
+
+      &:first-child {
+        --_dir: calc(-1 * var(--moveAmount));
+        justify-self: end;
+      }
+      &:last-child {
+        --_dir: var(--moveAmount);
+        justify-self: start;
+      }
+    }
+  }
+
+  @keyframes move {
+    from,
+    to {
+      opacity: 0.25;
+    }
+
+    50% {
+      translate: var(--_dir);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale {
+    25%,
+    75% {
+      scale: 1;
+    }
+  }
+</style>
