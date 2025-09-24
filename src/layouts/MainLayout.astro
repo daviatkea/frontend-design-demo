@@ -22,7 +22,9 @@ import Sidebar from "../components/Sidebar.astro";
     <Settings />
     <main>
       <Sidebar />
-      <slot />
+      <div>
+        <slot />
+      </div>
     </main>
   </body>
 </html>
@@ -34,7 +36,12 @@ import Sidebar from "../components/Sidebar.astro";
       gap: 3rlh;
       padding: 2rlh max(1rlh, 50% - 90ch / 2);
       @media (width > 600px) {
-        grid: auto / fit-content(150px) 1fr;
+        grid: auto / fit-content(300px) 1fr;
+      }
+      @media (width <= 600px) {
+        .sidebar {
+          display: none;
+        }
       }
     }
   }
