@@ -2,6 +2,8 @@
 import FeatureList from "../components/FeatureList.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import Section from "../components/Section.astro";
+import Carousel from "../components/Carousel.astro";
+import Sidebar from "../components/Sidebar.astro";
 
 import { getCollection, render } from "astro:content";
 
@@ -21,6 +23,7 @@ sections.sort((a, b) => a.data.order - b.data.order);
               <Content />
             </Section>
             {index === 1 && <FeatureList />}
+            {index === 2 && <Carousel />}
           </>
         );
       })

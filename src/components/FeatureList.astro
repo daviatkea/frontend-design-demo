@@ -123,6 +123,7 @@
     line-height: 1.5;
     view-timeline: --section;
     view-timeline-inset: calc(50% - 3rlh);
+    overflow-inline: clip;
 
     div {
       text-align: center;
@@ -135,6 +136,7 @@
 
     ul {
       font-size: 1.125rem;
+      font-size: clamp(0.875rem, calc(0.688rem + 0.75vw), 1.25rem);
       display: grid;
       grid: auto / 1fr 1fr;
       column-gap: 0.3ch;

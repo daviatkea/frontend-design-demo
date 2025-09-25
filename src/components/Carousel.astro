@@ -1,0 +1,230 @@
+<section>
+  <h2>Carousel</h2>
+  <ul>
+    <li>
+      <img
+        src="https://picsum.photos/700/400?random=1"
+        alt="Feature 1 image"
+        width="700"
+        height="400"
+      />
+      <h3>Feature 1</h3>
+    </li>
+    <li>
+      <img
+        src="https://picsum.photos/700/400?random=2"
+        alt="Feature 2 image"
+        width="700"
+        height="400"
+      />
+      <h3>Feature 2</h3>
+    </li>
+    <li>
+      <img
+        src="https://picsum.photos/700/400?random=3"
+        alt="Feature 3 image"
+        width="700"
+        height="400"
+      />
+      <h3>Feature 3</h3>
+    </li>
+    <li>
+      <img
+        src="https://picsum.photos/700/400?random=4"
+        alt="Feature 4 image"
+        width="700"
+        height="400"
+      />
+      <h3>Feature 4</h3>
+    </li>
+    <li>
+      <img
+        src="https://picsum.photos/700/400?random=5"
+        alt="Feature 5 image"
+        width="700"
+        height="400"
+      />
+      <h3>Feature 5</h3>
+    </li>
+    <li>
+      <img
+        src="https://picsum.photos/700/400?random=6"
+        alt="Feature 6 image"
+        width="700"
+        height="400"
+      />
+      <h3>Feature 6</h3>
+    </li>
+    <li>
+      <img
+        src="https://picsum.photos/700/400?random=7"
+        alt="Feature 7 image"
+        width="700"
+        height="400"
+      />
+      <h3>Feature 7</h3>
+    </li>
+    <li>
+      <img
+        src="https://picsum.photos/700/400?random=8"
+        alt="Feature 8 image"
+        width="700"
+        height="400"
+      />
+      <h3>Feature 8</h3>
+    </li>
+    <li>
+      <img
+        src="https://picsum.photos/700/400?random=9"
+        alt="Feature 9 image"
+        width="700"
+        height="400"
+      />
+      <h3>Feature 9</h3>
+    </li>
+    <li>
+      <img
+        src="https://picsum.photos/700/400?random=10"
+        alt="Feature 10 image"
+        width="700"
+        height="400"
+      />
+      <h3>Feature 10</h3>
+    </li>
+  </ul>
+</section>
+
+<style>
+  section {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    row-gap: 0.5rlh;
+    > * {
+      grid-column: 2;
+    }
+    h2 {
+      anchor-name: --carousel-heading;
+    }
+  }
+  ul {
+    grid-column: 1 / -1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    anchor-name: --carousel;
+
+    display: grid;
+    grid: auto / auto-flow max(60%, 400px);
+    overflow-inline: auto;
+    gap: 1rlh;
+    scroll-marker-group: before;
+    scroll-behavior: smooth;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: none;
+    padding-block-end: 1rlh;
+    padding-inline: max(1rlh, 50% - 90ch / 2);
+    scroll-padding-inline: max(1rlh, 50% - 90ch / 2);
+
+    &::scroll-marker-group {
+      position: fixed;
+      position-anchor: --carousel;
+      position-area: bottom;
+      display: grid;
+      grid: auto / auto-flow 1fr;
+      gap: 0.5rem;
+      grid-row: 1;
+      grid-column: 2;
+    }
+
+    &::scroll-button(*) {
+      border: 0;
+      aspect-ratio: 1;
+      inline-size: 1.2rlh;
+      background: none;
+      color: black;
+      opacity: 0.7;
+      cursor: pointer;
+      padding: 0;
+      border-radius: 1e5px;
+      corner-shape: squircle;
+    }
+
+    &::scroll-button(left) {
+      content: "" / "Scroll left";
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3C!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --%3E%3Cpath fill='currentColor' d='m7.825 13l5.6 5.6L12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2z'/%3E%3C/svg%3E")
+          50% 50% / 65% auto no-repeat,
+        #f7ede0;
+      position: absolute;
+      right: calc(anchor(right) + 1.2rlh + 2ch);
+      bottom: anchor(bottom);
+      top: anchor(top);
+      align-self: center;
+      position-anchor: --carousel-heading;
+    }
+    &::scroll-button(right) {
+      content: "" / "Scroll right";
+      position: absolute;
+      position-anchor: --carousel-heading;
+      right: anchor(right);
+      bottom: anchor(bottom);
+      top: anchor(top);
+      align-self: center;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3C!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --%3E%3Cpath fill='currentColor' d='M16.175 13H4v-2h12.175l-5.6-5.6L12 4l8 8l-8 8l-1.425-1.4z'/%3E%3C/svg%3E")
+          50% 50% / 65% auto no-repeat,
+        #f7ede0;
+      anchor-name: --carousel-right;
+      justify-self: end;
+    }
+
+    &::scroll-button(*):hover,
+    &::scroll-button(*):focus {
+      opacity: 1;
+    }
+
+    &::scroll-button(*):active {
+      translate: 1px 1px;
+    }
+
+    &::scroll-button(*):disabled {
+      opacity: 0.2;
+      cursor: unset;
+    }
+
+    li {
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      &::scroll-marker {
+        content: "";
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: oklch(0.8 10% 78 / 0.5);
+        border: 1px solid oklch(0.6 10% 78);
+        transition: background 0.3s;
+      }
+      &::scroll-marker:target-current {
+        background: oklch(0.6 10% 78);
+      }
+    }
+
+    img {
+      inline-size: 100%;
+      transform-origin: bottom;
+      animation:
+        --carousel-scroll 0.5s both,
+        --carousel-scroll 0.5s both reverse;
+      animation-timeline: view(inline calc(50% - (45ch / 2)));
+      animation-range: entry, exit;
+    }
+  }
+
+  @keyframes --carousel-scroll {
+    from {
+      scale: 0.9;
+    }
+  }
+</style>

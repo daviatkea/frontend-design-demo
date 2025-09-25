@@ -11,14 +11,13 @@ const { id } = Astro.props;
     section {
       padding: 1rlh;
       scroll-margin-block: 4rlh;
-      /* grid-column-end: -1; */
       border: var(--thickness) solid #eeeeee;
-      background: repeating-linear-gradient(
+      /* background: repeating-linear-gradient(
           -45deg,
           #f9f9f9 0 25%,
           transparent 0 50%
         )
-        0% 0% / 4px 4px;
+        0% 0% / 4px 4px; */
       position: relative;
       --size: 8px;
       --thickness: 1.5px;
@@ -26,6 +25,10 @@ const { id } = Astro.props;
       --marker-color: #808080;
       overflow: clip;
       overflow-clip-margin: var(--thickness);
+
+      @media (width > 600px) {
+        grid-column: 2;
+      }
 
       &::before {
         pointer-events: none;
@@ -55,6 +58,14 @@ const { id } = Astro.props;
         color: oklch(0.3 10% 78);
         margin-bottom: 1rlh;
         line-height: 1.25;
+        margin-inline: -1rlh;
+        padding-inline: 1rlh;
+        margin-top: -1rlh;
+        padding-block: 1rlh;
+        background:
+          linear-gradient(90deg, #fff0, #fff),
+          repeating-linear-gradient(-45deg, #f6ede0 0 25%, transparent 0 50%) 0%
+            0% / 4px 4px;
       }
       > * + * {
         margin-block-start: 1lh;
